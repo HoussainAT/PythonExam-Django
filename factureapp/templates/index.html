@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outil Facture</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+
+<body>
+    <div class="container p-4">
+        <h1>Gestionnaire des factures 📝
+        </h1>
+        {% if nb_facture == 0 %} <h3>Il n'y a pas de facture</h3>
+        {% else %}
+        <h3>Il y a {{ nb_facture }} factures</h3>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="container p-4">
+        <button type="button" class="btn btn-primary my-4"><a class="text-white text-decoration-none"
+                href="add_facture">Ajouter une facture</a></button>
+        </button>
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Facture n°</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Montant</th>
+                    <th scope="col">État</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for facture in factures %}
+                <tr scope="row" class="p-2">
+                    <th scope="row">{{facture.id}}</th>
+                    <td>{{ facture.nom }}</td>
+                    <td>{{ facture.prenom }}</td>
+                    <td>{{ facture.montant }} €</td>
+                    <td>{{ facture.get_etat_display }}</td>
+                    <td>
+                        <a href="update_facture/{{ facture.id }}" class="btn btn-primary" role="button">Éditer la
+                            facture</a>
+                        <a href="delete_facture/{{ facture.id }}" class="btn btn-danger" role="button">Supprimer la
+                            facture</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
